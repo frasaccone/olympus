@@ -23,6 +23,7 @@ MAKE=$GMAKE \
              --disable-gold \
              --disable-libctf \
              --disable-plugins \
+             --disable-shared \
              --enable-default-hash-style=gnu \
              --enable-deterministic-archives \
              --enable-new-dtags \
@@ -30,5 +31,5 @@ MAKE=$GMAKE \
              --without-msgpack
 
 "$GMAKE" configure-host
-"$GMAKE"
-"$GMAKE" DESTDIR="$PREFIX" install
+"$GMAKE" LDFLAGS=-all-static
+"$GMAKE" DESTDIR="$PREFIX" install-strip
