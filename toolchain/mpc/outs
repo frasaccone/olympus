@@ -1,0 +1,5 @@
+#no-chroot
+
+/include/mpc.h
+
+/lib/libmpc.a

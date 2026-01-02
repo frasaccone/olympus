@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -eu
+umask 022
+
+ARCH=${ARCH:-$(uname -m)}
+GMAKE=${GMAKE:-gmake}
+GZ=${GZ:-gz}
+LEX=${LEX:-lex}
+M4=${M4:-m4}
+
+"$GZ" -cd mpc.tar.gz | tar -x
+
+cd    mpc*/
+mkdir build
+cd    build
+
+LEX=$LEX \
+M4=$M4 \
+MAKE=$GMAKE \
+../configure --prefix=/ \
+             --host="$ARCH-linux-musl" \
+             --disable-shared \
+             --with-gmp="$PREFIX" \
+             --with-mpfr="$PREFIX"
+
+"$GMAKE"
+"$GMAKE" DESTDIR="$PREFIX" install
