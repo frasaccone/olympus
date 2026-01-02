@@ -15,7 +15,7 @@ cd    build
 
 MAKE=$GMAKE \
 ../configure --prefix=/ \
-            --host="$ARCH-linux-musl"
+             --host="$ARCH-linux-musl"
 
 "$GMAKE"
 "$GMAKE" DESTDIR="$PREFIX" install
