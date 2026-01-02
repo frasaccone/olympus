@@ -20,6 +20,9 @@ Bootstrap requirements
 - [Gzip](https://en.wikipedia.org/wiki/Gzip) decompressor. By default, packages
   try to run the `gz` command; the `GZ` environment variable may be set to
   the desired program.
+- [Lex](https://www.man7.org/linux/man-pages/man1/lex.1p.html). By default,
+  packages use the `lex` command; the `LEX` environment variable may be set to
+  the desired program.
 - Cross C compiler for `ARCH`. By default, when `ARCH` is set, the programs
   used for compilation, such as `as`, `ar` and `ld`, are described by
   `$ARCH-linux-musl-<PROGRAM>`. The corresponding environment variables, such

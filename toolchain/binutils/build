@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -eu
+umask 022
+
+ARCH=${ARCH:-$(uname -m)}
+GMAKE=${GMAKE:-gmake}
+GZ=${GZ:-gz}
+LEX=${LEX:-lex}
+
+"$GZ" -cd binutils.tar.gz | tar -x
+
+cd    binutils*/
+mkdir build
+cd    build
+
+CFLAGS=-I"$PREFIX/include" \
+LDFLAGS=-L"$PREFIX/lib" \
+LEX=$LEX \
+MAKE=$GMAKE \
+../configure --prefix=/ \
+             --host="$ARCH-linux-musl" \
+             --disable-gold \
+             --disable-libctf \
+             --disable-plugins \
+             --enable-default-hash-style=gnu \
+             --enable-deterministic-archives \
+             --enable-new-dtags \
+             --with-system-zlib \
+             --without-msgpack
+
+"$GMAKE" configure-host
+"$GMAKE"
+"$GMAKE" DESTDIR="$PREFIX" install
