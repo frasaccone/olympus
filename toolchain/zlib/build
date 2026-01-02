@@ -1,0 +1,30 @@
+#/bin/sh
+
+set -eu
+umask 022
+
+ARCH=${ARCH:-}
+GMAKE=${GMAKE:-gmake}
+GZ=${GZ:-gz}
+
+"$GZ" -cd zlib.tar.gz | tar -x
+
+cd    zlib*/
+mkdir build
+cd    build
+
+if [ -n "$ARCH" ]
+then
+	CC=${CC:-"$ARCH-linux-musl-cc"}
+else
+	CC=${CC:-cc}
+fi
+
+MAKE=$GMAKE \
+CC=$CC \
+../configure --prefix=/ \
+             --const \
+             --static
+
+"$GMAKE"
+"$GMAKE" DESTDIR="$PREFIX" install

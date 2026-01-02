@@ -1,0 +1,9 @@
+#no-chroot
+
+/include/zconf.h
+/include/zlib.h
+
+/lib/libz.a
+/lib/pkgconfig/zlib.pc
+
+/share/man/man3/zlib.3
