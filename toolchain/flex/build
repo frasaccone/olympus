@@ -1,0 +1,21 @@
+#/bin/sh
+
+set -eu
+umask 022
+
+ARCH=${ARCH:-$(uname -m)}
+GMAKE=${GMAKE:-gmake}
+GZ=${GZ:-gz}
+
+"$GZ" -cd flex.tar.gz | tar -x
+
+cd    flex*/
+mkdir build
+cd    build
+
+MAKE=$GMAKE \
+../configure --prefix=/ \
+            --host="$ARCH-linux-musl"
+
+"$GMAKE"
+"$GMAKE" DESTDIR="$PREFIX" install
