@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -eu
+umask 022
+
+ARCH=${ARCH:-$(uname -m)}
+GMAKE=${GMAKE:-gmake}
+GZ=${GZ:-gz}
+LEX=${LEX:-lex}
+M4=${M4:-m4}
+
+"$GZ" -cd gmp.tar.gz | tar -x
+
+cd    gmp*/
+mkdir build
+cd    build
+
+LEX=$LEX \
+M4=$M4 \
+MAKE=$GMAKE \
+../configure --prefix=/ \
+             --host="$ARCH-linux-musl" \
+             --disable-shared
+
+"$GMAKE"
+"$GMAKE" DESTDIR="$PREFIX" install

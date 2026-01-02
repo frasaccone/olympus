@@ -1,0 +1,6 @@
+#no-chroot
+
+/include/gmp.h
+
+/lib/libgmp.a
+/lib/pkgconfig/gmp.pc
