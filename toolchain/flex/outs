@@ -1,6 +1,0 @@
-#no-chroot
-
-/bin/flex
-/bin/flex++
-
-/share/man/man1/flex.1
