@@ -1,0 +1,26 @@
+Olympus
+=======
+
+Package repository for [`pr`](git://francescosaccone.com/pr).
+
+Preparation
+-----------
+
+Set the `ARCH` environment variable to the desired target architecture. If it
+is not set, the packages will be built for the host architecture.
+
+Bootstrap requirements
+----------------------
+
+- POSIX shell.
+- Basic POSIX utilities.
+- [GNU Make](https://www.gnu.org/software/make/). By default, packages use the
+  `gmake` command; the `GMAKE` environment variable may be set to the desired
+  program.
+- [Gzip](https://en.wikipedia.org/wiki/Gzip) decompressor. By default, packages
+  try to run the `gz` command; the `GZ` environment variable may be set to
+  the desired program.
+- Cross C compiler for `ARCH`. By default, when `ARCH` is set, the programs
+  used for compilation, such as `as`, `ar` and `ld`, are described by
+  `$ARCH-linux-musl-<PROGRAM>`. The corresponding environment variables, such
+  as `AS`, `AR` and `LD`, may be set to the desired programs.
