@@ -1,0 +1,7 @@
+#no-chroot
+
+/include/mpf2mpfr.h
+/include/mpfr.h
+
+/lib/libmpfr.a
+/lib/pkgconfig/mpfr.pc
