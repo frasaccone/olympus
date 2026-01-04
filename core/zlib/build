@@ -3,7 +3,7 @@
 set -eu
 umask 022
 
-ARCH=${ARCH:-}
+ARCH=${ARCH:-$(uname -m)}
 GMAKE=${GMAKE:-gmake}
 GZ=${GZ:-gz}
 
@@ -13,15 +13,8 @@ cd    zlib*/
 mkdir build
 cd    build
 
-if [ -n "$ARCH" ]
-then
-	CC=${CC:-"$ARCH-linux-musl-cc"}
-else
-	CC=${CC:-cc}
-fi
-
 MAKE=$GMAKE \
-CC=$CC \
+CC=${CC:-"$ARCH-linux-musl-cc"} \
 ../configure --prefix=/ \
              --const \
              --static
