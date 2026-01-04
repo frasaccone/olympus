@@ -3,14 +3,13 @@ Olympus
 
 Package repository for [`pr`](git://francescosaccone.com/pr).
 
-Preparation
------------
+Bootstrap
+---------
 
 Set the `ARCH` environment variable to the desired target architecture. If it
 is not set, the packages will be built for the host architecture.
 
-Bootstrap requirements
-----------------------
+To compile the core packages, the following dependencies are required:
 
 - POSIX shell.
 - Basic POSIX utilities.
@@ -29,3 +28,8 @@ Bootstrap requirements
   used for compilation, such as `as`, `ar` and `ld`, are described by
   `$ARCH-linux-musl-<PROGRAM>`. The corresponding environment variables, such
   as `AS`, `AR` and `LD`, may be set to the desired programs.
+
+To build the core packages to PREFIX, use the following command inside this
+directory:
+
+	pr -s . -p PREFIX -i $(ls core)
