@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -eu
+umask 022
+
+ARCH=${ARCH:-$(uname -m)}
+CC=${CC:-"$ARCH-linux-musl-gcc"}
+CXX=${CXX:-"$ARCH-linux-musl-g++"}
+GMAKE=${GMAKE:-gmake}
+GZ=${GZ:-gz}
+LEX=${LEX:-lex}
+M4=${M4:-m4}
+PATCH=${PATCH:-patch}
+
+"$GZ" -cd gcc.tar.gz | tar -x
+
+cd    gcc*/
+mkdir build
+cd    build
+
+static='-static --static'
+
+CC="$CC $static" \
+CFLAGS=-I"$PREFIX/include" \
+CXX="$CXX $static" \
+LDFLAGS=-L"$PREFIX/lib" \
+LEX=$LEX \
+M4=$M4 \
+MAKE=$GMAKE \
+../configure --prefix=/ \
+             --host="$ARCH-linux-musl" \
+             --disable-multilib \
+             --disable-libstdcxx-pch \
+             --enable-languages=c,c++ \
+             --with-gmp="$PREFIX" \
+             --with-mpfr="$PREFIX" \
+             --with-mpc="$PREFIX" \
+             --with-system-zlib
+
+"$GMAKE"
+"$GMAKE" DESTDIR="$PREFIX" install-strip
